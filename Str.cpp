@@ -172,7 +172,14 @@ int get_line (FILE* file, char** buf, int* lim)
     int len = 0;
     char c = fgetc (file);
 
-    if (*buf == NULL) *buf = (char*) calloc (sizeof (char), *lim);
+    const int Max_Buf_Size = 100;
+
+    if (*buf == NULL)
+    {
+        *buf = (char*) calloc (sizeof (char), Max_Buf_Size);
+        *lim = Max_Buf_Size;
+    }
+
     char* pointer = *buf;
 
     while (c != '\n' && c != EOF)
@@ -194,8 +201,12 @@ int get_line (FILE* file, char** buf, int* lim)
 
     *pointer = '\0';
 
+    free((*buf) + len);
+
     return len;
 }
+
+//-----------------------------------------------------------------------------
 
 char* str_dup (char* str_src)
 {

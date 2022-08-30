@@ -7,7 +7,7 @@
 
 int main()
 {
-    char* s = (char*) calloc (sizeof (char), 6);
+    char* s = NULL;
     int lim = 6;
 
     printf ("%p\n", s);
